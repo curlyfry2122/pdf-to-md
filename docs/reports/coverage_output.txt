@@ -1,0 +1,153 @@
+[1m============================= test session starts =============================[0m
+platform win32 -- Python 3.13.4, pytest-8.4.2, pluggy-1.6.0
+rootdir: C:\Users\jdevine\dev\pdf-to-md
+configfile: pytest.ini
+plugins: anyio-4.10.0, cov-7.0.0, mock-3.15.1
+collected 173 items
+
+tests\test_alt_text_patterns.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m           [ 17%][0m
+tests\test_auto_watcher.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                 [ 24%][0m
+tests\test_batch_processor.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m
+
+[33m============================== warnings summary ===============================[0m
+<frozen importlib._bootstrap>:488
+<frozen importlib._bootstrap>:488
+  <frozen importlib._bootstrap>:488: DeprecationWarning: builtin type SwigPyPacked has no __module__ attribute
+
+<frozen importlib._bootstrap>:488
+<frozen importlib._bootstrap>:488
+  <frozen importlib._bootstrap>:488: DeprecationWarning: builtin type SwigPyObject has no __module__ attribute
+
+<frozen importlib._bootstrap>:488
+  <frozen importlib._bootstrap>:488: DeprecationWarning: builtin type swigvarlink has no __module__ attribute
+
+tests\test_pdf_analysis.py:12
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_analysis.py:12: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_analysis.py:31
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_analysis.py:31: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_analysis.py:39
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_analysis.py:39: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_analysis.py:47
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_analysis.py:47: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_analysis.py:58
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_analysis.py:58: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_analysis.py:76
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_analysis.py:76: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_analysis.py:90
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_analysis.py:90: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_analysis.py:108
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_analysis.py:108: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_analysis.py:130
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_analysis.py:130: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_analysis.py:139
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_analysis.py:139: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:20
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:20: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:40
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:40: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:58
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:58: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:76
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:76: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:92
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:92: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:107
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:107: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:135
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:135: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:151
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:151: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:166
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:166: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:196
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:196: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:211
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:211: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:223
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:223: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:244
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:244: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:259
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:259: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:269
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:269: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:282
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:282: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:294
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:294: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:306
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:306: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:322
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:322: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:349
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:349: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+tests\test_pdf_converter.py:398
+  C:\Users\jdevine\dev\pdf-to-md\tests\test_pdf_converter.py:398: PytestUnknownMarkWarning: Unknown pytest.mark.requires_pdf - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    @pytest.mark.requires_pdf
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[1m[31mC:\Users\jdevine\AppData\Local\Programs\Python\Python313\Lib\unittest\mock.py[0m:1228: KeyboardInterrupt
+[33m(to show a full traceback on KeyboardInterrupt use --full-trace)[0m
+[33m======================= [32m56 passed[0m, [33m[1m36 warnings[0m[33m in 1.38s[0m[33m =======================[0m
+<sys>:0: DeprecationWarning: builtin type swigvarlink has no __module__ attribute

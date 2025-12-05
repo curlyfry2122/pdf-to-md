@@ -1,0 +1,397 @@
+Metadata-Version: 2.4
+Name: pdf-to-md
+Version: 0.1.0
+Summary: PDF and DOCX to Markdown converter with detailed alt text support
+Home-page: 
+Author: 
+Author-email: 
+Project-URL: Bug Reports, 
+Project-URL: Source, 
+Keywords: pdf markdown converter docx alt-text accessibility
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Text Processing :: Markup :: Markdown
+Classifier: Topic :: Utilities
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: PyMuPDF>=1.23.0
+Requires-Dist: python-docx>=0.8.11
+Requires-Dist: watchdog>=3.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: pylint>=2.15.0; extra == "dev"
+Requires-Dist: flake8>=5.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: bandit>=1.7.0; extra == "dev"
+Provides-Extra: ocr
+Requires-Dist: easyocr>=1.6.0; extra == "ocr"
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: keywords
+Dynamic: project-url
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# PDF to Markdown Converter
+
+**Refactored** - Enhanced PDF to Markdown conversion with automatic processing, intelligent chunking, and modular architecture.
+
+## 🚀 Quick Start
+
+### Automatic Conversion (Recommended)
+Drop PDFs into the `inputs/` folder and they'll be automatically converted:
+
+```bash
+python auto_convert.py
+```
+
+The converter will:
+- Watch the `inputs/` folder continuously
+- Process new PDFs automatically
+- Archive processed files with timestamps
+- Log all conversions
+
+### Manual Conversion
+
+**Single PDF:**
+```bash
+python pdf_converter.py path/to/document.pdf
+```
+
+**Batch convert all PDFs in inputs/:**
+```bash
+python batch_convert.py
+```
+
+## ✨ Key Features
+
+- **🔄 Automatic Processing**: File watcher monitors `inputs/` folder
+- **📦 Smart Chunking**: Large PDFs split intelligently (>100 pages or >50MB)
+- **🎯 Flat Output**: All markdown files in `outputs/`, images in `outputs/images/`
+- **🖼️ Image Extraction**: Embedded images extracted and properly referenced
+- **✍️ Detailed Alt Text**: Context-aware, accessible image descriptions (NEW!)
+- **📊 Batch Processing**: Convert multiple PDFs at once
+- **📋 Summary Reports**: Automatic conversion summaries
+- **🔧 Modular Design**: Core library for easy customization
+
+## 📁 Project Structure
+
+```
+pdf-to-md/
+├── pdf_converter_lib.py     # Core library (shared functions)
+├── pdf_converter.py          # Unified converter (single/manual use)
+├── batch_convert.py          # Batch processor
+├── auto_convert.py           # Automatic file watcher
+├── alt_text_patterns.py      # Pattern recognition for alt text
+├── inputs/                   # Drop PDFs here
+├── outputs/                  # Markdown files output here
+│   ├── *.md                 # Converted markdown files
+│   └── images/              # Extracted images
+└── archive/                  # Processed PDFs archived here
+    └── YYYYMMDD_HHMMSS/     # Timestamped sessions
+```
+
+## ✍️ Detailed Alt Text Feature
+
+The converter now generates **context-aware, accessible alt text** for all extracted images using a hybrid approach:
+
+### How It Works
+
+1. **Pattern Recognition** (Fast, No API costs)
+   - Detects common elements: logos, UI components, headers
+   - Analyzes image position, size, and aspect ratio
+   - Uses page text for context clues
+   - Identifies recurring patterns (e.g., FEWS NET & USAID logos on slides)
+
+2. **AI Vision Fallback** (Optional, for complex images)
+   - Can be enabled for detailed analysis of charts, diagrams
+   - Currently a placeholder for future AI integration
+   - Falls back to smart generic descriptions
+
+### Examples
+
+**Before (generic):**
+```markdown
+![Image from page 1](images/doc_page_001_img_01.png)
+```
+
+**After (detailed):**
+```markdown
+![FEWS NET logo - Famine Early Warning Systems Network with globe icon showing continents](images/doc_page_001_img_01.png)
+![Screenshot of FDW login page with username and password fields, 'Remember Me' checkbox, green 'SIGN IN' button, and 'Forgot Password?' link](images/doc_page_012_img_03.png)
+![Screenshot of data table showing Burundi market price data with columns for Data Series ID, Source document, Usage policy, First period date, Last period date, and Data series subtype](images/doc_page_024_img_03.png)
+```
+
+### Configuration
+
+**Enabled by default** - All conversions automatically generate detailed alt text.
+
+To customize (programmatic use):
+```python
+from pdf_converter import convert_pdf_to_markdown
+
+# Standard detailed alt text (default)
+result = convert_pdf_to_markdown("document.pdf")
+
+# Concise alt text (shorter descriptions)
+result = convert_pdf_to_markdown("document.pdf", detail_level="concise")
+
+# Verbose alt text (includes page/image numbers)
+result = convert_pdf_to_markdown("document.pdf", detail_level="verbose")
+
+# Enable AI vision analysis (when implemented)
+result = convert_pdf_to_markdown("document.pdf", enable_ai_vision=True)
+
+# Disable detailed alt text (fallback to generic)
+result = convert_pdf_to_markdown("document.pdf", enable_detailed_alt_text=False)
+```
+
+### Benefits
+
+- **Accessibility**: Screen readers get meaningful descriptions
+- **SEO**: Better search engine indexing
+- **Documentation**: Self-describing images without manual annotation
+- **Context Preservation**: Captures what images represent, not just "image"
+
+## 📖 Usage Guide
+
+### Auto-Converter
+
+**Watch mode (continuous):**
+```bash
+python auto_convert.py
+```
+
+**Scan once and exit:**
+```bash
+python auto_convert.py --scan
+```
+
+**Help:**
+```bash
+python auto_convert.py --help
+```
+
+Features:
+- Detects new PDFs dropped in `inputs/` folder
+- Converts immediately and automatically
+- Archives processed PDFs to `archive/TIMESTAMP/`
+- Logs to `outputs/auto_convert.log`
+- Supports drag-and-drop
+
+### Manual Converter
+
+**Convert specific PDF:**
+```bash
+python pdf_converter.py path/to/file.pdf
+```
+
+**Convert first PDF in inputs/:**
+```bash
+python pdf_converter.py
+```
+
+### Batch Converter
+
+**Convert all PDFs in inputs/ folder:**
+```bash
+python batch_convert.py
+```
+
+Features:
+- Processes all PDFs in `inputs/` directory
+- Generates summary report (`outputs/batch_summary.md`)
+- Shows progress and statistics
+- Error handling for failed conversions
+
+## 🛠️ Installation
+
+### Requirements
+
+- Python 3.6+
+- PyMuPDF (fitz)
+- watchdog (optional, for auto-conversion)
+
+### Install Dependencies
+
+```bash
+# Required
+pip install PyMuPDF
+
+# Optional (for auto-conversion)
+pip install watchdog
+```
+
+## 📊 Output Structure
+
+All outputs use a **flat structure** per CLAUDE.md guidelines:
+
+```
+outputs/
+├── Document_Name.md              # Single file (if <100 pages)
+├── Large_Document_part_01.md     # Chunked files (if >100 pages)
+├── Large_Document_part_02.md
+├── Large_Document_INDEX.md       # Master index (for chunked docs)
+├── batch_summary.md              # Batch conversion report
+├── auto_convert.log              # Auto-converter log
+└── images/
+    ├── Document_Name_page_001_img_01.png
+    └── Large_Document_page_015_img_02.png
+```
+
+## 🎯 Smart Chunking
+
+PDFs are automatically analyzed and chunked based on size:
+
+| Document Size | Chunk Strategy |
+|--------------|----------------|
+| ≤100 pages AND ≤50MB | Single file (no chunking) |
+| 101-200 pages | 25 pages per chunk |
+| >200 pages | 50 pages per chunk |
+
+Large documents include a master INDEX file for easy navigation.
+
+## 🔧 Architecture
+
+### Core Library (`pdf_converter_lib.py`)
+
+Provides shared functions:
+- File handling and validation
+- PDF analysis and chunking decisions
+- Output directory management
+- Image extraction
+- Logging utilities
+
+### Unified Converter (`pdf_converter.py`)
+
+Main conversion engine:
+- Validates and processes PDFs
+- Handles chunking logic
+- Extracts text and images
+- Creates master indexes
+- Provides CLI interface
+
+### Batch Converter (`batch_convert.py`)
+
+Bulk processing tool:
+- Finds all PDFs in input directory
+- Converts each using unified converter
+- Generates summary reports
+- Tracks success/failure rates
+
+### Auto-Converter (`auto_convert.py`)
+
+Automatic processing daemon:
+- Monitors `inputs/` folder using watchdog
+- Processes new files immediately
+- Archives processed PDFs
+- Maintains conversion logs
+- Runs continuously or one-time scan
+
+## 📝 Examples
+
+### Example 1: Automatic Processing
+
+```bash
+# Start the auto-converter
+python auto_convert.py
+
+# In another terminal or file explorer:
+# Drop PDFs into inputs/ folder
+# They'll be converted automatically!
+```
+
+### Example 2: Batch Convert
+
+```bash
+# Place multiple PDFs in inputs/
+python batch_convert.py
+
+# Check outputs/ for results
+# Review outputs/batch_summary.md for report
+```
+
+### Example 3: Single File
+
+```bash
+# Convert a specific document
+python pdf_converter.py "C:\Users\Documents\report.pdf"
+
+# Result: outputs/report.md
+```
+
+## 🔍 Legacy Scripts
+
+The following older scripts are preserved for reference but **deprecated**:
+
+- `convert.py` - Original converter (use `pdf_converter.py` instead)
+- `convert_flat.py` - Flat output variant (integrated into `pdf_converter.py`)
+- `batch_convert_flat.py` - Old batch processor (use `batch_convert.py` instead)
+- Other specialized scripts - Preserved in codebase but superseded by new modular system
+
+**Recommendation:** Use the new `pdf_converter.py`, `batch_convert.py`, and `auto_convert.py` for all conversions.
+
+## 🐛 Troubleshooting
+
+**Watchdog not available:**
+```bash
+pip install watchdog
+```
+
+**Permission errors:**
+- Ensure write access to `outputs/` and `archive/` directories
+- Run as administrator if needed (Windows)
+
+**Large PDF fails:**
+- Check available disk space
+- PDFs >500 pages may need adjustments to chunk size
+- Review logs for specific errors
+
+**Images not extracting:**
+- Ensure sufficient disk space
+- Some PDF formats may have embedded images that can't be extracted
+- Check `outputs/auto_convert.log` for warnings
+
+## 📚 Recent Conversions
+
+The system has successfully processed various document types including:
+- Economic reports (26-96 pages)
+- Market analyses
+- Policy documents
+- Technical reports
+
+## 🤝 Contributing
+
+The refactored codebase is modular and extensible:
+
+1. **Core Library**: Add new utility functions to `pdf_converter_lib.py`
+2. **Conversion Logic**: Enhance `pdf_converter.py` for processing improvements
+3. **Automation**: Extend `auto_convert.py` for new triggers
+4. **Batch Processing**: Customize `batch_convert.py` for specific workflows
+
+## 📄 License
+
+This project is open source and available for use and modification.
+
+## 🔗 Links
+
+- Core Library: `pdf_converter_lib.py` - Shared utilities
+- Main Converter: `pdf_converter.py` - Primary conversion engine
+- Batch Tool: `batch_convert.py` - Bulk processing
+- Auto Tool: `auto_convert.py` - Automatic monitoring
+
+---
+
+**Version:** 2.0 (Refactored)  
+**Last Updated:** October 2025

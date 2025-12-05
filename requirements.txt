@@ -1,0 +1,8 @@
+# PDF to Markdown Converter - Requirements
+
+# Required dependencies
+PyMuPDF>=1.23.0  # PDF processing library
+python-docx>=0.8.11  # Word document processing library
+
+# Optional dependencies
+watchdog>=3.0.0  # File system monitoring (for auto_convert.py)
