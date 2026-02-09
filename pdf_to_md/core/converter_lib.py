@@ -113,20 +113,23 @@ def open_pdf_document(pdf_path: str) -> Iterator:
 # OUTPUT MANAGEMENT
 # ============================================================================
 
-def create_flat_output_structure() -> Tuple[str, str]:
+def create_flat_output_structure(base_dir: str = "outputs") -> Tuple[str, str]:
     """
     Create flat output directory structure per CLAUDE.md
-    All markdown files in outputs/, images in outputs/images/
-    
+    All markdown files in base_dir/, images in base_dir/images/
+
+    Args:
+        base_dir: Base output directory (default: "outputs")
+
     Returns:
         tuple: (output_dir, images_dir) paths
     """
-    output_dir = "outputs"
+    output_dir = base_dir
     images_dir = os.path.join(output_dir, "images")
-    
+
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(images_dir, exist_ok=True)
-    
+
     logging.info(f"Output directories ready: {output_dir}, {images_dir}")
     return output_dir, images_dir
 

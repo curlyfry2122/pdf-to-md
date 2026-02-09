@@ -15,13 +15,14 @@ from pdf_to_md.core.converter_lib import format_file_size, setup_logging
 from pdf_to_md.core.pdf_converter import convert_pdf_to_markdown
 
 
-def batch_convert_pdfs(inputs_dir: str = "inputs") -> List[Dict[str, Any]]:
+def batch_convert_pdfs(inputs_dir: str = "inputs", outputs_dir: str = "outputs") -> List[Dict[str, Any]]:
     """
     Convert all PDFs in the specified directory
-    
+
     Args:
         inputs_dir: Directory containing PDFs to convert
-        
+        outputs_dir: Directory for markdown output files (default: "outputs")
+
     Returns:
         list: Conversion results for each PDF
     """
@@ -29,37 +30,38 @@ def batch_convert_pdfs(inputs_dir: str = "inputs") -> List[Dict[str, Any]]:
     logging.info("BATCH PDF TO MARKDOWN CONVERSION")
     logging.info("=" * 60)
     logging.info(f"Source directory: {inputs_dir}")
+    logging.info(f"Output directory: {outputs_dir}")
     logging.info(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     logging.info(f"Detailed alt text: ENABLED (pattern-based + context-aware)")
     logging.info("")
-    
+
     # Find all PDF files
     pdf_pattern = os.path.join(inputs_dir, "*.pdf")
     pdf_files = glob.glob(pdf_pattern)
-    
+
     if not pdf_files:
         logging.error(f"No PDF files found in {inputs_dir}")
         return []
-    
+
     logging.info(f"Found {len(pdf_files)} PDF file(s) to convert:")
     for i, pdf_file in enumerate(pdf_files, 1):
         file_size = os.path.getsize(pdf_file)
         logging.info(f"  {i:2d}. {os.path.basename(pdf_file)} ({format_file_size(file_size)})")
     logging.info("")
-    
+
     # Convert each PDF
     results = []
     successful = 0
     failed = 0
     total_files_created = 0
     total_images_extracted = 0
-    
+
     for i, pdf_file in enumerate(pdf_files, 1):
         logging.info(f"\n[{i}/{len(pdf_files)}] Converting: {os.path.basename(pdf_file)}")
         logging.info("-" * 40)
-        
+
         try:
-            result = convert_pdf_to_markdown(pdf_file)
+            result = convert_pdf_to_markdown(pdf_file, output_dir=outputs_dir)
             
             if result.get('success', False):
                 results.append({
@@ -127,15 +129,16 @@ def batch_convert_pdfs(inputs_dir: str = "inputs") -> List[Dict[str, Any]]:
     return results
 
 
-def create_summary_report(results: List[Dict[str, Any]], output_file: str = "outputs/batch_summary.md") -> None:
+def create_summary_report(results: List[Dict[str, Any]], output_file: str = "outputs/batch_summary.md", outputs_dir: str = "outputs") -> None:
     """
     Create a markdown summary report of batch conversion
-    
+
     Args:
         results: List of conversion results
         output_file: Path to output summary file
+        outputs_dir: Output directory (for display in report)
     """
-    os.makedirs("outputs", exist_ok=True)
+    os.makedirs(os.path.dirname(output_file) if os.path.dirname(output_file) else ".", exist_ok=True)
     
     total_pdfs = len(results)
     successful = len([r for r in results if r['status'] == 'success'])

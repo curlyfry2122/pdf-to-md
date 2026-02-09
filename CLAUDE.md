@@ -35,3 +35,19 @@ Only these should be at root:
 - `README.md`, `CLAUDE.md`, `MANUAL-REVIEW.md`
 - `setup.py`, `requirements.txt`, `pytest.ini`
 - CLI entry points: `pdf_converter.py`, `batch_convert.py`, `auto_convert.py`, `docx_converter.py`
+
+## Integration with Commodity Pipeline
+
+This tool is commonly used as **Stage 2** of the commodity report processing workflow:
+
+```
+report-downloads → pdf-to-md → im-report-processing
+(Fetch PDFs)      (Convert)    (Extract by commodity)
+```
+
+- **Upstream**: `report-downloads` repository fetches source PDFs from USDA, FAO, EIA, etc.
+- **Downstream**: `im-report-processing` repository extracts commodity-specific sections
+
+The `## Page N` markers added during conversion enable keyword-based extraction in Stage 3.
+
+See `im-report-processing/docs/PIPELINE_WORKFLOW.md` for complete pipeline documentation.

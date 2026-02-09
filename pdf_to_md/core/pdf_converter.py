@@ -131,7 +131,8 @@ def convert_pdf_to_markdown(
     overwrite: bool = False,
     enable_detailed_alt_text: bool = True,
     enable_ai_vision: bool = False,
-    detail_level: str = "standard"
+    detail_level: str = "standard",
+    output_dir: Optional[str] = None
 ) -> Dict[str, Any]:
     """
     Main conversion function with smart chunking, flat output, and detailed alt text.
@@ -142,6 +143,7 @@ def convert_pdf_to_markdown(
         enable_detailed_alt_text: Generate detailed alt text descriptions (default: True)
         enable_ai_vision: Use AI vision analysis for complex images (default: False)
         detail_level: Alt text detail level - 'concise', 'standard', 'verbose' (default: 'standard')
+        output_dir: Output directory for markdown and images (default: "outputs")
 
     Returns:
         dict: Conversion results with keys:
@@ -155,23 +157,24 @@ def convert_pdf_to_markdown(
     try:
         # Validate input
         validated_path = validate_pdf_path(pdf_path)
-        
+
         logging.info(f"Converting PDF: {os.path.basename(validated_path)}")
         logging.info("=" * 60)
-        
+
         # Analyze PDF
         analysis = analyze_pdf_for_chunking(validated_path)
         logging.info(f"Pages: {analysis['page_count']}, Size: {analysis['file_size_mb']:.2f} MB")
-        
-        # Create flat output structure
-        output_dir, images_dir = create_flat_output_structure()
+
+        # Create flat output structure (use specified dir or default "outputs")
+        base_output_dir = output_dir if output_dir else "outputs"
+        output_dir_path, images_dir = create_flat_output_structure(base_output_dir)
         
         # Check for existing files
         if not overwrite:
-            existing = check_existing_output(validated_path, output_dir)
+            existing = check_existing_output(validated_path, output_dir_path)
             if existing:
                 logging.warning(f"Will overwrite {len(existing)} existing file(s)")
-        
+
         if analysis['chunking_needed']:
             logging.info(
                 f"Chunking enabled: {analysis['num_chunks']} parts of "
@@ -179,21 +182,21 @@ def convert_pdf_to_markdown(
             )
         else:
             logging.info("Single file processing (no chunking needed)")
-        
+
         logging.info("-" * 60)
-        
+
         # Process PDF in chunks
         chunk_files = []
         total_images = 0
-        
+
         for chunk_num in range(analysis['num_chunks']):
             start_page = chunk_num * analysis['chunk_size']
             end_page = start_page + analysis['chunk_size']
-            
+
             try:
                 if analysis['chunking_needed']:
                     chunk_file, img_count = process_pdf_chunk(
-                        validated_path, output_dir, images_dir,
+                        validated_path, output_dir_path, images_dir,
                         start_page, end_page, chunk_num + 1,
                         enable_detailed_alt_text=enable_detailed_alt_text,
                         enable_ai_vision=enable_ai_vision,
@@ -201,43 +204,43 @@ def convert_pdf_to_markdown(
                     )
                 else:
                     chunk_file, img_count = process_pdf_chunk(
-                        validated_path, output_dir, images_dir,
+                        validated_path, output_dir_path, images_dir,
                         start_page, end_page, None,
                         enable_detailed_alt_text=enable_detailed_alt_text,
                         enable_ai_vision=enable_ai_vision,
                         detail_level=detail_level
                     )
-                
+
                 if chunk_file:
                     chunk_files.append(chunk_file)
                     total_images += img_count
                 else:
                     logging.warning(f"Failed to process chunk {chunk_num + 1}")
-            
+
             except Exception as e:
                 logging.error(f"Error processing chunk {chunk_num + 1}: {e}")
                 continue
-        
+
         # Verify we have successful chunks
         if not chunk_files:
             raise RuntimeError("No chunks were successfully processed")
-        
+
         # Create master index if chunked
         if analysis['chunking_needed'] and chunk_files:
             try:
-                create_master_index(validated_path, output_dir, chunk_files, analysis)
+                create_master_index(validated_path, output_dir_path, chunk_files, analysis)
             except Exception as e:
                 logging.warning(f"Failed to create master index: {e}")
-        
+
         logging.info("=" * 60)
         logging.info(f"Conversion complete!")
         logging.info(f"Files created: {len(chunk_files)}")
         logging.info(f"Images extracted: {total_images}")
-        logging.info(f"Output location: {output_dir}")
-        
+        logging.info(f"Output location: {output_dir_path}")
+
         return {
             'success': True,
-            'output_dir': output_dir,
+            'output_dir': output_dir_path,
             'files_created': chunk_files,
             'images_extracted': total_images,
             'chunked': analysis['chunking_needed']
