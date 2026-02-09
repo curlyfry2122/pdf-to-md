@@ -1,5 +1,0 @@
-[console_scripts]
-auto-convert = pdf_to_md.batch.auto_watcher:main
-batch-convert = pdf_to_md.batch.batch_processor:main
-docx2md = pdf_to_md.cli.docx2md:main
-pdf2md = pdf_to_md.cli.pdf2md:main

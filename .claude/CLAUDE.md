@@ -1,1 +1,0 @@
-- Always output md files directly into the outputs folder, not into their own subdirectories within the outputs folder
