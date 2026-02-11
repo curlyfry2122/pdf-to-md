@@ -6,14 +6,31 @@
 - Processed PDFs are archived to `archive/pdfs/`
 
 ## File Organization
-- Root level: Only CLI entry points, README, config files
-- `pdf_to_md/`: All library code (import from here, not root)
-- `tools/`: Standalone utility scripts
+- Root level: Only config files and README — no Python modules
+- `pdf_to_md/`: All library code as an installable package
+  - `cli/`: CLI entry points (`pdf2md.py`, `docx2md.py`, `interactive.py`)
+  - `core/`: Conversion logic (`pdf_converter.py`, `converter_lib.py`, `docx_converter.py`)
+  - `batch/`: Batch processing (`batch_processor.py`, `auto_watcher.py`)
+  - `alt_text/`: Alt text generation patterns
+  - `utils/`: Shared utilities
+- `tools/`: Standalone utility scripts and legacy CLI wrappers
+- `tests/`: Test suite (pytest)
+- `inputs/`: Source PDFs awaiting conversion
 - `scripts/windows/`: Windows automation (.bat, .vbs, .ps1)
-- `docs/`: All documentation except README.md and CLAUDE.md
+- `docs/`: Documentation, session archives, and reports
+  - `docs/archive/`: Session documentation and project history
+  - `docs/reports/`: Generated reports (coverage, analysis)
+
+## CLI Entry Points
+The project uses `setup.py` console_scripts (no root-level Python scripts):
+- `pdf2md` → `pdf_to_md.cli.pdf2md:main`
+- `docx2md` → `pdf_to_md.cli.docx2md:main`
+- `batch-convert` → `pdf_to_md.batch.batch_processor:main`
+- `auto-convert` → `pdf_to_md.batch.auto_watcher:main`
+
+Install with `pip install -e .` to register these commands.
 
 ## Code Style
-- Python scripts at root are thin CLI wrappers
 - Shared logic lives in `pdf_to_md/` package
 - Import from package, not from other root files
 - Keep functions focused and testable
@@ -34,7 +51,6 @@
 Only these should be at root:
 - `README.md`, `CLAUDE.md`, `MANUAL-REVIEW.md`
 - `setup.py`, `requirements.txt`, `pytest.ini`
-- CLI entry points: `pdf_converter.py`, `batch_convert.py`, `auto_convert.py`, `docx_converter.py`
 
 ## Integration with Commodity Pipeline
 
